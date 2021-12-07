@@ -42,6 +42,4 @@ jobs:
         output: ./deployment.yaml
 
     - run: |-
-        cat deployment.yaml
-
         kubectl apply -f deployment.yaml
