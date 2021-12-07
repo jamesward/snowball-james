@@ -34,12 +34,12 @@ jobs:
         pack build --builder=gcr.io/buildpacks/builder:v1 --publish \
           gcr.io/$PROJECT_ID/$REPO_NAME:$GITHUB_SHA
 
+    - uses: nowactions/envsubst@v1
+      with:
+        input: ./deployment.yaml.tmpl
+        output: ./deployment.yaml
+
     - run: |-
-        sed -e 's/$$PROJECT_ID/'"$PROJECT_ID"'/g' deployment.yml | \
-          sed -e 's/$$REPO_NAME/'"$REPO_NAME"'/g' | \
-          sed -e 's/$$SAMPLE/'"$SAMPLE"'/g' | \
-          sed -e 's/$$COMMIT_SHA/'"$GITHUB_SHA"'/g' > _deployment.yml
+        cat deployment.yaml
 
-        cat _deployment.yml
-
-        kubectl apply -f _deployment.yml
+        kubectl apply -f deployment.yaml
