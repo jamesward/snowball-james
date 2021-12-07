@@ -30,6 +30,10 @@ def move():
     logger.info(request.json)
     return moves[random.randrange(len(moves))]
 
+@app.route("/", methods=['GET'])
+def index():
+    return "hello, world"
+
 if __name__ == "__main__":
   app.run(debug=False,host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))
   
