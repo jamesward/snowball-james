@@ -22,6 +22,7 @@ jobs:
     - uses: google-github-actions/setup-gcloud@v0.3.0
       with:
         project_id: ${{ secrets.GKE_PROJECT }}
+        export_default_credentials: true
 
     - run: |-
         gcloud auth configure-docker -q
