@@ -9,6 +9,7 @@ env:
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
   SAMPLE: ${{ secrets.SAMPLE }}
   REPO_NAME: ${{ github.event.repository.name }}
+  COMMIT_SHA: ${{ github.sha }}
 
 jobs:
   deploy:
@@ -33,7 +34,7 @@ jobs:
 
     - run: |-
         pack build --builder=gcr.io/buildpacks/builder:v1 --publish \
-          gcr.io/$PROJECT_ID/$REPO_NAME:$GITHUB_SHA
+          gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA
 
     - uses: nowactions/envsubst@v1
       with:
